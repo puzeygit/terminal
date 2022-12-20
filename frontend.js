@@ -1,7 +1,7 @@
 
-const socket = new WebSocket("ws://localhost:6060");
+const socket = new WebSocket("ws://localhost:3001");
 
-var term = new window.Terminal({
+const term = new window.Terminal({
     cursorBlink: true
 });
 term.open(document.getElementById('terminal'));
@@ -50,8 +50,8 @@ function init() {
 }
 
 function clearInput(command) {
-    var inputLengh = command.length;
-    for (var i = 0; i < inputLengh; i++) {
+    const inputLengh = command.length;
+    for (let i = 0; i < inputLengh; i++) {
         term.write('\b \b');
     }
 }

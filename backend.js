@@ -1,15 +1,15 @@
-const WebSocket = require('ws')
-var os = require('os');
-var pty = require('node-pty');
+const WebSocket = require('ws');
+const os = require('os');
+const pty = require('node-pty');
 
-const wss = new WebSocket.Server({ port: 6060 })
+const wss = new WebSocket.Server({ port: 3001 })
 
 console.log("Socket is up and running...")
 
-var shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
-var ptyProcess = pty.spawn(shell, [], {
+const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
+console.log(shell)
+const ptyProcess = pty.spawn(shell, [], {
     name: 'xterm-color',
-    //   cwd: process.env.HOME,
     env: process.env,
 });
 wss.on('connection', ws => {
@@ -21,6 +21,5 @@ wss.on('connection', ws => {
     ptyProcess.on('data', function (data) {
         ws.send(data)
         console.log(data);
-
     });
 })
